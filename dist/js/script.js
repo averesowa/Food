@@ -178,7 +178,37 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  setClock('.timer', deadline);
+  setClock('.timer', deadline); // Modal
+
+  const modalTrigger = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal'),
+        modalCloseBtn = document.querySelector('[data-modalClose]');
+
+  function showModal() {
+    modal.classList.add('show');
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.classList.remove('show');
+    document.body.style.overflow = "";
+  }
+
+  modalTrigger.forEach(trigger => {
+    trigger.addEventListener('click', showModal);
+  }); //клик по подложке / кнопке
+
+  modal.addEventListener('click', e => {
+    if (e.target === modal || e.target === modalCloseBtn) {
+      closeModal();
+    }
+  }); //закрытие на Esc
+
+  document.addEventListener('keydown', e => {
+    if (e.code === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+    }
+  });
 });
 
 /***/ })
